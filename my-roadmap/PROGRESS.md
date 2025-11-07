@@ -15,12 +15,12 @@ Track your progress through the security roadmap. Update this file as you comple
 |------|----------|------|--------|----------------|-------|
 | 1.1 Firewall Setup | ⚠️ CRITICAL | 30 min | ✅ | Nov 6, 2025 | UFW configured with SSH (22), HTTP (80), HTTPS (443) allowed |
 | 1.2 GPG Signing | ⚠️ CRITICAL | 45 min | ✅ | Nov 6, 2025 | GPG key created (ID: 47EB514E098C396D), git signing configured |
-| 1.3 SSH Hardening | ⚠️ CRITICAL | 30 min | 🔴 | | |
-| 1.4 Backup Setup | ⚠️ CRITICAL | 1 hour | 🔴 | | |
+| 1.3 SSH Hardening | ⚠️ CRITICAL | 30 min | ✅ | Nov 6, 2025 | Ed25519 key secured with passphrase, hardened config applied |
+| 1.4 Backup Setup | ⚠️ CRITICAL | 1 hour | ✅ | Nov 6, 2025 | Restic configured to /mnt/nas/backups, daily cron at 2 AM, 1.254 GiB backed up |
 | 1.5 System Updates | 🔴 HIGH | 15 min | 🔴 | | |
 
-**Phase 1 Total**: 2 / 5 complete
-**Est. Time Remaining**: 2.25 hours
+**Phase 1 Total**: 4 / 5 complete
+**Est. Time Remaining**: 15 minutes
 
 ### Phase 1 Verification Checklist
 
@@ -28,8 +28,8 @@ After completing Phase 1, verify:
 
 - [x] Firewall active: `sudo ufw status verbose`
 - [x] GPG signing works: `git log --show-signature`
-- [ ] SSH key has passphrase
-- [ ] First backup completed
+- [x] SSH key has passphrase
+- [x] First backup completed
 - [ ] Automatic updates enabled
 - [x] No errors in Phase 1 scripts
 
@@ -144,13 +144,13 @@ After completing Phase 1, verify:
 
 ### Summary
 
-- **Phase 1**: 2 / 5 tasks (40%)
+- **Phase 1**: 4 / 5 tasks (80%)
 - **Phase 2**: 0 / 4 tasks (0%)
 - **Phase 3**: 0 / 4 tasks (0%)
 - **Phase 4**: 0 / 4 tasks (0%)
 - **Phase 5**: 0 / 3 systems (0%)
 
-**Total Progress**: 2 / 20 tasks (10%)
+**Total Progress**: 4 / 20 tasks (20%)
 
 ### Timeline
 
@@ -161,7 +161,7 @@ After completing Phase 1, verify:
 - Ongoing: Phase 5
 
 **Actual Progress**:
-- Week 1: Phase 1.1 ✅, Phase 1.2 ✅ (Started Nov 6, 2025)
+- Week 1: Phase 1.1 ✅, Phase 1.2 ✅, Phase 1.3 ✅, Phase 1.4 ✅ (Started Nov 6, 2025)
 - Week 2: _______
 - Week 3: _______
 - Week 4: _______
@@ -174,7 +174,7 @@ After completing Phase 1, verify:
 
 | Date | Phase | Issue | Resolution | Status |
 |------|-------|-------|------------|--------|
-| | | | | |
+| Nov 6, 2025 | 1.4 | Permission denied errors on grafana-data during backup | Minor errors, non-critical files excluded from backup | ✅ Resolved |
 
 ### Custom Modifications
 
@@ -188,9 +188,9 @@ After completing Phase 1, verify:
 
 ### ⚠️ Don't Forget
 
-- [ ] Save backup password in password manager
+- [x] Save backup password in password manager (Password: XJMCw0oOmf01S/ETFt7fSGRDBSt3vPe08nBhkdgZ+N4=)
 - [x] Add GPG key to GitHub (Added Nov 6, 2025 - Key ID: 47EB514E098C396D)
-- [ ] Add SSH key to GitHub
+- [x] Add SSH key to GitHub (ssh-ed25519, charles@seaturtleinvest.com)
 - [ ] Test backup restore monthly
 - [x] Keep this document updated
 - [x] Document any changes to configurations
@@ -199,8 +199,10 @@ After completing Phase 1, verify:
 ### Important Credentials Locations
 
 - Backup password: `~/.backup-password` (also in password manager)
-- SSH key: `~/.ssh/id_ed25519`
-- GPG key: `gpg --list-keys`
+- Backup repository: `/mnt/nas/backups/restic-repo`
+- Backup scripts: `~/.local/bin/backup-home.sh`, `~/.local/bin/restore-backup.sh`
+- SSH key: `~/.ssh/id_ed25519` (Ed25519, with passphrase)
+- GPG key: `gpg --list-keys` (Key ID: 47EB514E098C396D)
 - Git config: `~/.gitconfig`
 - SSH config: `~/.ssh/config`
 
